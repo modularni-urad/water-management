@@ -4,6 +4,7 @@ exports.up = (knex, Promise) => {
   return knex.schema.createTable(TNAMES.CONSUMPTIONPOINT, (table) => {
     table.increments('id').primary()
     table.string('dev_id')
+    table.string('app_id').notNullable()
     table.string('desc').notNullable()
     table.float('battery').notNullable().defaultTo(0)
     table.float('temp').notNullable().defaultTo(0)

@@ -21,6 +21,7 @@ const editables = ['dev_id', 'coef', 'desc', 'lat', 'lng', 'alt']
 
 export function create (body, knex) {
   body = _.pick(body, editables)
+  body.app_id = process.env.APP_ID
   return knex(TNAMES.CONSUMPTIONPOINT).returning('id').insert(body)
 }
 
