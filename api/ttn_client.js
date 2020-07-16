@@ -3,16 +3,17 @@ import _ from 'underscore'
 import assert from 'assert'
 import data from './data'
 import points from './points'
-const ttn = require('ttn')
-const TTN_URL = 'http://eu.thethings.network:8084'
+const TTN = require('ttn')
+const TTN_URL = process.env.TTN_URL || 'http://eu.thethings.network:8084'
 assert.ok(process.env.APP_ID, 'env.APP_ID not defined!')
 assert.ok(process.env.APP_SECRET, 'env.APP_SECRET not defined!')
 const APP_ID = process.env.APP_ID
 const APP_SECRET = process.env.APP_SECRET
 
 // https://www.thethingsnetwork.org/docs/applications/nodejs/quick-start.html
-export default function appStart (knex) {
+export default function appStart (knex, ttnMock = null) {
   console.log(`connecting to ${APP_ID}`)
+  const ttn = ttnMock || TTN
 
   async function onUplink (devID, payload) {
     _sendMetadata(payload)

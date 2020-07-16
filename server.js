@@ -22,7 +22,7 @@ export async function init (mocks = null) {
   app.use(InitApp(appContext))
 
   initErrorHandlers(app) // ERROR HANDLING
-  StartTTN(knex)
+  StartTTN(knex, mocks ? mocks.ttn : null)
   return app
 }
 

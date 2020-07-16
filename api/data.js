@@ -8,7 +8,7 @@ async function create (cPoint, body, author, created, knex) {
   const data = {
     pointid: cPoint.id,
     counter: body.wter || null,
-    value: body.wter ? (body.wter * cPoint.coef) : body,
+    value: body.wter ? (body.wter * cPoint.coef) : body.value,
     author,
     created
   }
@@ -27,7 +27,7 @@ function list (query, knex) {
   const perPage = Number(query.perPage) || 10
   const currentPage = Number(query.currentPage) || null
   const q = _.omit(query, 'currentPage', 'perPage')
-  const qb = knex(TNAMES.CONSUMPTIONPOINT).where(whereFilter(q))
+  const qb = knex(TNAMES.CONSUMPTIONSTATE).where(whereFilter(q))
   return currentPage ? qb.paginate({ perPage, currentPage }) : qb
 }
 
