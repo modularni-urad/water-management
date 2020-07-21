@@ -16,7 +16,7 @@ async function create (cPoint, body, author, created, knex) {
 
   // TODO: if type === battery ...
   // TODO: update value, battery, temp
-  return knex(TNAMES.CONSUMPTIONPOINT).where({ id: cPoint }).update({
+  return knex(TNAMES.CONSUMPTIONPOINT).where({ id: cPoint.id }).update({
     battery: body.batt || null,
     value: data.value,
     temp: body.temp
