@@ -15,7 +15,8 @@ module.exports = (g) => {
     dev_id: 'p1',
     payload_fields: {
       wter: 983436,
-      batt: 3.54
+      batt: 3.54,
+      temp: 23
     },
     metadata: {
       time: '2020-05-27T11:45:15.141140285Z'

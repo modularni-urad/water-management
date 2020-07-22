@@ -7,5 +7,6 @@ export const TNAMES = {
 export const STATE = {
   NORMAL: 'normal',
   OVER: 'over',
-  UNDER: 'under'
+  UNDER: 'under',
+  BATTLOW: 'lowbatt'
 }

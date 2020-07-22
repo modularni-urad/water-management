@@ -7,8 +7,13 @@ export default { create, update, list, get }
 function list (query, knex) {
   const perPage = Number(query.perPage) || 10
   const currentPage = Number(query.currentPage) || null
-  const q = _.omit(query, 'currentPage', 'perPage')
-  const qb = knex(TNAMES.CONSUMPTIONPOINT).where(whereFilter(q))
+  const fields = query.fields ? query.fields.split(',') : null
+  const sort = query.sort ? query.sort.split(':') : null
+  const filter = query.filter ? JSON.parse(query.filter) : null
+  let qb = knex(TNAMES.CONSUMPTIONPOINT)
+  qb = filter ? qb.where(whereFilter(filter)) : qb
+  qb = fields ? qb.select(fields) : qb
+  qb = sort ? qb.orderBy(sort[0], sort[1]) : qb
   return currentPage ? qb.paginate({ perPage, currentPage }) : qb
 }
 
