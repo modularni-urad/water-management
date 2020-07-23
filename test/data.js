@@ -52,6 +52,7 @@ module.exports = (g) => {
       const res = await r.get('/points/').query({ dev_id: lowbattData.dev_id })
       res.should.have.status(200)
       res.body[0].alerts.should.equal('lowbatt')
+      g.integratorData.length.should.equal(1)
     })
   })
 }

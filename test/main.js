@@ -4,7 +4,7 @@ import chai from 'chai'
 
 import { init } from '../server'
 import dbinit from './utils/dbinit'
-import { ttnClient, setTTNData } from './utils/ttn_mock'
+import { ttnClient, setTTNData, integratorData } from './utils/ttn_mock'
 const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
 
@@ -13,6 +13,7 @@ const g = {
   baseurl: `http://localhost:${port}`,
   ttnClient,
   setTTNData,
+  integratorData,
   UID: 110
 }
 const mocks = {

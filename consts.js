@@ -9,3 +9,5 @@ export const ALERTS = {
   UNDER: 'under',
   BATTLOW: 'lowbatt'
 }
+
+export const BATT_WARN = 2.45
