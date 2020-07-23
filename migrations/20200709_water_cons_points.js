@@ -1,4 +1,4 @@
-import { TNAMES, STATE } from '../consts'
+import { TNAMES } from '../consts'
 
 exports.up = (knex, Promise) => {
   return knex.schema.createTable(TNAMES.CONSUMPTIONPOINT, (table) => {
@@ -13,7 +13,7 @@ exports.up = (knex, Promise) => {
     table.float('lat')
     table.float('lng')
     table.float('alt')
-    table.string('state').notNullable().defaultTo(STATE.NORMAL)
+    table.string('alerts')
     table.timestamp('created').notNullable().defaultTo(knex.fn.now())
   })
 }

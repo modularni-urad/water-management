@@ -1,6 +1,6 @@
 import { whereFilter } from 'knex-filter-loopback'
-import _ from 'underscore'
-import { STATE, TNAMES } from '../consts'
+import str from 'underscore.string'
+import { ALERTS, TNAMES } from '../consts'
 const BATT_WARN = 2.45
 
 export default { create, list, createManualy }
@@ -18,14 +18,19 @@ async function create (cPoint, body, author, created, knex, auth) {
   const pChange = {
     battery: body.batt || null,
     value: data.value,
-    temp: body.temp
+    temp: body.temp,
+    alerts: null
   }
   if (body.batt && body.batt < BATT_WARN) {
-    pChange.state = STATE.BATTLOW
-    // auth.inform
+    setAlert(ALERTS.BATTLOW, pChange)
+    // TODO: integrace do taskmanu - ukol pro udrzbare vymenit baterky
   }
-  // TODO: update value, battery, temp
+  // TODO: update value - spocitat
   return knex(TNAMES.CONSUMPTIONPOINT).where({ id: cPoint.id }).update(pChange)
+}
+
+function setAlert (alert, change) {
+  change.alerts = change.alerts ? `${change.alerts}|${alert}` : alert
 }
 
 function list (query, knex) {

@@ -4,8 +4,7 @@ export const TNAMES = {
   CONSUMPTIONSTATE: 'water_cons_state'
 }
 
-export const STATE = {
-  NORMAL: 'normal',
+export const ALERTS = {
   OVER: 'over',
   UNDER: 'under',
   BATTLOW: 'lowbatt'

@@ -1,7 +1,7 @@
 /* global describe it */
 const chai = require('chai')
 // const should = chai.should()
-// import _ from 'underscore'
+import deepcopy from 'deepcopy'
 const wait = (time) => new Promise(resolve => {
   setTimeout(resolve, time)
 })
@@ -40,6 +40,18 @@ module.exports = (g) => {
     it('must create a new data', async () => {
       const res = await r.post(`/data/${1}`).send({ value: 1144 })
       res.should.have.status(200)
+    })
+
+    it('batt low alert', async () => {
+      g.setTTNData(dev)
+      const lowbattData = deepcopy(data)
+      lowbattData.payload_fields.batt = 1
+      lowbattData.metadata.time = (new Date()).toISOString()
+      g.ttnClient.emit('uplink', lowbattData.dev_id, lowbattData)
+      await wait(1800)
+      const res = await r.get('/points/').query({ dev_id: lowbattData.dev_id })
+      res.should.have.status(200)
+      res.body[0].alerts.should.equal('lowbatt')
     })
   })
 }
