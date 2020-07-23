@@ -54,5 +54,15 @@ module.exports = (g) => {
       res.body[0].alerts.should.equal('lowbatt')
       g.integratorData.length.should.equal(1)
     })
+
+    it('batt low alert not repeat', async () => {
+      g.integratorData.splice(0, g.integratorData.length)
+      const lowbattData = deepcopy(data)
+      lowbattData.payload_fields.batt = 1
+      lowbattData.metadata.time = (new Date()).toISOString()
+      g.ttnClient.emit('uplink', lowbattData.dev_id, lowbattData)
+      await wait(1800)
+      g.integratorData.length.should.equal(0)
+    })
   })
 }

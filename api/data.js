@@ -1,5 +1,6 @@
 
 import { whereFilter } from 'knex-filter-loopback'
+import str from 'underscore.string'
 import { ALERTS, TNAMES, BATT_WARN } from '../consts'
 import tasks from './tasks'
 
@@ -24,7 +25,9 @@ async function create (cPoint, body, author, created, knex, auth) {
   if (body.batt && body.batt < BATT_WARN) {
     setAlert(ALERTS.BATTLOW, pChange)
     // integrace do taskmanu - ukol pro udrzbare vymenit baterky
-    tasks.add(ALERTS.BATTLOW, cPoint)
+    if (!str.include(cPoint.alerts, ALERTS.BATTLOW)) {
+      tasks.add(ALERTS.BATTLOW, cPoint)
+    }
   }
   // TODO: update value - spocitat
   return knex(TNAMES.CONSUMPTIONPOINT).where({ id: cPoint.id }).update(pChange)
