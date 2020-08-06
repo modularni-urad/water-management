@@ -8,7 +8,7 @@ let ttnData = {}
 export const integratorData = []
 
 const app = express()
-app.get((req, res) => {
+app.get('*', (req, res) => {
   res.json(ttnData)
 })
 app.post('/task', bodyParser.json(), (req, res) => {

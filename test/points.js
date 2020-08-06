@@ -11,7 +11,9 @@ module.exports = (g) => {
     app_id: 'app1',
     dev_id: 'p1',
     coef: 1,
-    desc: 'pok1 with device'
+    desc: 'pok1 with device',
+    sn: '43242',
+    type: 'std'
   }
 
   return describe('points', () => {

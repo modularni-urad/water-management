@@ -22,7 +22,11 @@ export function get (appId, devId, knex) {
     .where({ app_id: appId, dev_id: devId }).first()
 }
 
-const editables = ['dev_id', 'coef', 'desc', 'lat', 'lng', 'alt']
+const editables = [
+  'dev_id', 'coef', 'start',
+  'sn', 'type', 'sensor_type', 'sensor_sn', 'pipe',
+  'desc', 'lat', 'lng', 'alt'
+]
 
 export function create (body, knex) {
   body = _.pick(body, editables)
