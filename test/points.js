@@ -10,7 +10,8 @@ module.exports = (g) => {
   const p1 = {
     app_id: 'app1',
     dev_id: 'p1',
-    coef: 1,
+    coef: 1 / 1000,
+    start: 512,
     desc: 'pok1 with device',
     sn: '43242',
     type: 'std'

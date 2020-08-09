@@ -7,10 +7,13 @@ import tasks from './tasks'
 export default { create, list, createManualy }
 
 async function create (cPoint, body, author, created, knex, auth) {
+  const value = body.wter
+    ? (body.wter + cPoint.start) * cPoint.coef
+    : body.value
   const data = {
     pointid: cPoint.id,
     counter: body.wter || null,
-    value: body.wter ? (body.wter * cPoint.coef) : body.value,
+    value,
     author,
     created
   }

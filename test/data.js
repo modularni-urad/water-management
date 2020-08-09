@@ -1,7 +1,7 @@
 /* global describe it */
+import deepcopy from 'deepcopy'
 const chai = require('chai')
 // const should = chai.should()
-import deepcopy from 'deepcopy'
 const wait = (time) => new Promise(resolve => {
   setTimeout(resolve, time)
 })
@@ -14,7 +14,7 @@ module.exports = (g) => {
     app_id: 'app1',
     dev_id: 'p1',
     payload_fields: {
-      wter: 983436,
+      wter: 10000,
       batt: 3.54,
       temp: 23
     },
@@ -34,6 +34,7 @@ module.exports = (g) => {
       g.ttnClient.emit('uplink', data.dev_id, data)
       await wait(1800)
       const res = await r.get('/data/')
+      res.body[0].value.should.eql(10.512)
       res.should.have.status(200)
     })
 
