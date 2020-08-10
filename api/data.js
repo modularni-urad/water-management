@@ -43,7 +43,9 @@ function setAlert (alert, change) {
 function list (query, knex) {
   const fields = query.fields ? query.fields.split(',') : null
   const filter = query.filter ? JSON.parse(query.filter) : {}
-  const qb = knex(TNAMES.CONSUMPTIONSTATE).where(whereFilter(filter))
+  const qb = knex(TNAMES.CONSUMPTIONSTATE)
+    .where(whereFilter(filter))
+    .orderBy('created', 'asc')
   return fields ? qb.select(fields) : qb
 }
 
