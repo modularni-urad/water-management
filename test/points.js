@@ -18,15 +18,13 @@ module.exports = (g) => {
   }
 
   return describe('points', () => {
-    //
-    // it('must not create a new item wihout auth', () => {
-    //   return r.post('/points').send(p1)
-    //   .then(res => {
-    //     res.should.have.status(401)
-    //   })
-    // })
+    it('must not create a new item wihout approp group', async () => {
+      const res = await r.post('/points').send(p1)
+      res.status.should.equal(403)
+    })
 
     it('shall create a new item p1', async () => {
+      g.usergroups.push('waterman_admin')
       const res = await r.post('/points').send(p1)
       res.status.should.equal(201)
     })

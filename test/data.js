@@ -38,7 +38,13 @@ module.exports = (g) => {
       res.should.have.status(200)
     })
 
+    it('must NOT create new data without approp group', async () => {
+      const res = await r.post(`/data/${1}`).send({ value: 1144 })
+      res.should.have.status(403)
+    })
+
     it('must create a new data', async () => {
+      g.usergroups.push('waterman_data')
       const res = await r.post(`/data/${1}`).send({ value: 1144 })
       res.should.have.status(200)
     })

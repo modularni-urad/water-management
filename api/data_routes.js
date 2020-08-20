@@ -11,11 +11,14 @@ export default (ctx) => {
     }).catch(next)
   })
 
-  app.post('/:id', auth.required, JSONBodyParser, (req, res, next) => {
-    data.createManualy(req.params.id, req.body, auth.getUID(req), knex)
-      .then(createdid => { res.json(createdid) })
-      .catch(next)
-  })
+  app.post('/:id',
+    auth.requireMembership('waterman_data'),
+    JSONBodyParser,
+    (req, res, next) => {
+      data.createManualy(req.params.id, req.body, auth.getUID(req), knex)
+        .then(createdid => { res.json(createdid) })
+        .catch(next)
+    })
 
   return app
 }

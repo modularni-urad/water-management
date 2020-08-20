@@ -14,13 +14,15 @@ const g = {
   ttnClient,
   setTTNData,
   integratorData,
-  UID: 110
+  UID: 110,
+  usergroups: []
 }
 const mocks = {
   dbinit: dbinit,
   auth: {
-    required: (req, res, next) => {
-      return next()
+    required: (req, res, next) => { return next() },
+    requireMembership: (gid) => (req, res, next) => {
+      return g.usergroups.indexOf(gid) >= 0 ? next() : next(403)
     },
     getUID: (req) => g.UID
   },

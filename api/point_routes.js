@@ -8,18 +8,24 @@ export default (ctx) => {
     points.list(req.query, knex).then(info => { res.json(info) }).catch(next)
   })
 
-  app.post('/', auth.required, JSONBodyParser, (req, res, next) => {
-    points.create(req.body, knex).then(savedid => {
-      res.status(201).json(savedid)
-      next()
-    }).catch(next)
-  })
+  app.post('/',
+    auth.requireMembership('waterman_admin'),
+    JSONBodyParser,
+    (req, res, next) => {
+      points.create(req.body, knex).then(savedid => {
+        res.status(201).json(savedid)
+        next()
+      }).catch(next)
+    })
 
-  app.put('/:id([0-9]+)', auth.required, JSONBodyParser, (req, res, next) => {
-    points.update(req.params.id, req.body, knex)
-      .then(result => res.json(result))
-      .catch(next)
-  })
+  app.put('/:id([0-9]+)',
+    auth.requireMembership('waterman_admin'),
+    JSONBodyParser,
+    (req, res, next) => {
+      points.update(req.params.id, req.body, knex)
+        .then(result => res.json(result))
+        .catch(next)
+    })
 
   return app
 }
