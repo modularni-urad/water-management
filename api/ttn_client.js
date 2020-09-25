@@ -23,12 +23,17 @@ export default function appStart (knex, ttnMock = null) {
       dev = await points.get(APP_ID, devID, knex)
     }
     data.create(dev, payload.payload_fields, null, payload.metadata.time, knex)
+      .catch(err => console.error(err))
   }
 
   ttn.data(APP_ID, APP_SECRET)
     .then(client => {
       console.log('connected')
       client.on('uplink', onUplink)
+      client.on('event', (devID, message) => {
+        console.error(`EVENTERROR: ${devID}`)
+        console.error(message)
+      })
     })
     .catch(err => {
       console.error(err)
