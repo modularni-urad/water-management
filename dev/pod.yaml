@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: water-management
+  labels:
+    app: water-management
+spec:
+  containers:
+  - name: water-management
+    image: modularniurad/water-management
+    imagePullPolicy: Never
+    env:
+    - name: DATABASE_URL
+      value: postgres://gandalf:hovno@postgre-service/gis
+    - name: HOST
+      value: 0.0.0.0
+    - name: APP_ID
+      value: tabor-mu-vodomery
+    - name: APP_SECRET
+      value: ttn-account-v2.ATQAIUHwq15EzWSDitpNj7Ob-HvK_lYUySLl8cvTxUE
+    - name: TASK_API
+      value: AA

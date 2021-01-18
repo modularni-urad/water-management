@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: water-management-svc
+spec:
+  type: NodePort
+  selector:
+    app: water-management
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000

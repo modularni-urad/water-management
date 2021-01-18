@@ -1,11 +1,11 @@
 {
   "name": "modularni-urad-water-management",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "API pro management vodomeru",
   "main": "server.js",
   "scripts": {
-    "start": "node -r esm -r dotenv/config server.js",
-    "startdbg": "node -r esm -r dotenv/config --inspect-brk server.js",
+    "start": "node -r esm server.js",
+    "startdbg": "node -r esm --inspect-brk server.js",
     "test": "mocha -r esm -r ./test/utils/env --exit './test/main.js'",
     "testdbg": "mocha -r esm -r ./test/utils/env --inspect-brk './test/main.js'"
   },
@@ -13,13 +13,12 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "dotenv": "^6.0.0",
     "esm": "^3.2.25",
     "express": "^4.16.2",
+    "knex": "^0.21.16",
     "knex-filter-loopback": "^0.3.0",
     "knex-paginate": "^1.2.1",
-    "modularni-urad-utils": "https://github.com/modularni-urad/utils",
+    "modularni-urad-utils": "1.1.2",
     "morgan": "^1.9.0",
     "ttn": "^2.3.3",
     "underscore": "^1.9.1",
